@@ -59,6 +59,7 @@ namespace ConsoleUI
                 // Call each of the drive methods for one car and one motorcycle
                 v.DriveAbstract();
                 v.DriveVirtual();
+                Console.WriteLine();
             }
 
             #endregion       
