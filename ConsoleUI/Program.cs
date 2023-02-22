@@ -32,22 +32,76 @@ namespace ConsoleUI
             */
 
             // Create a list of Vehicle called vehicles
+            var inventory = new List<Vehicle>();
 
             /*
              * Create 4 instances: 1 Car, 1 Motorcycle, and then 2 instances of type Vehicle (use explicit typing) but use constuctors from derived classes
              * 
              * Set the properties with object initializer syntax
              */
+            var myPilot = new Car() { HasTrunk= true, Year="2015", Make="Honda", Model="Pilot" };
+            var myGoldWing = new Motorcycle() { HasSidecar= false, Model="Gold Wing" };
+            Vehicle myGeneric1 = new Car() { HasTrunk= true };
+            Vehicle myGeneric2 = new Motorcycle() { HasSidecar= true };
 
             /*
              * Add the 4 vehicles to the list
              * Using a foreach loop iterate over each of the properties
              */
+            inventory.Add(myPilot);
+            inventory.Add(myGoldWing);
+            inventory.Add(myGeneric1);
+            inventory.Add(myGeneric2);
 
-            // Call each of the drive methods for one car and one motorcycle
+            foreach (Vehicle v in inventory)
+            {
+                Console.WriteLine(v.Make + ", " + v.Model + " " + v.GetType().Name);
+                // Call each of the drive methods for one car and one motorcycle
+                v.DriveAbstract();
+                v.DriveVirtual();
+            }
 
-            #endregion            
-            Console.ReadLine();
+            #endregion       
         }
     }
+
+    public abstract class Vehicle
+    {
+        public string Year { get; set; } = "Def Yr";
+        public string Make { get; set; } = "Def Mk";
+        public string Model { get; set; } = "Def Md";
+
+        public abstract void DriveAbstract();
+
+        public virtual void DriveVirtual()
+        {
+            Console.WriteLine("Look at me vdriving (Vehicle class).");
+        }
+    }
+
+    public class Car : Vehicle
+    {
+        public bool HasTrunk { get; set; }
+
+        public override void DriveAbstract()
+        {
+            Console.WriteLine("Look at me adriving (Car class).");
+        }
+    }
+
+    public class Motorcycle : Vehicle
+    {
+        public bool HasSidecar { get; set; }
+
+        public override void DriveAbstract()
+        {
+            Console.WriteLine("Look at me adriving (Motorcycle class).");
+        }
+
+        public override void DriveVirtual()
+        {
+            Console.WriteLine("Look at me vdriving (Motorcycle class).");
+        }
+    }
+
 }
